@@ -1,12 +1,13 @@
 import { useFetch } from './hooks/useFetch';
 import { getTransactions } from './service/api';
+import { useCalculatePoints } from './hooks/useCalculatePoints';
 import './App.css'
 
 function App() {
 
   const { data: transactions, loading, error } = useFetch(getTransactions)
 
-
+  const customerRewards = useCalculatePoints(transactions);
   if (loading) { return <div>Loading...</div> }
   if (error) { return <div>Error: {error}</div> }
 
@@ -14,8 +15,8 @@ function App() {
     <div>
       <h1>Transactions</h1>
       <ul>
-        {transactions.map(transaction => (
-          <li key={transaction.id}>{transaction.customerName}</li>
+        {customerRewards.map(customer => (
+          <li key={customer.customerId}>{customer.customerName} - {customer.totalPoints} points</li>
         ))}
       </ul>
     </div>
