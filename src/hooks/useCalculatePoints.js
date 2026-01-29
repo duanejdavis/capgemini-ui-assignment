@@ -13,7 +13,7 @@ export const useCalculatePoints = ( transactions ) => {
         const customerMap = {};
 
         transactions.forEach(transaction => {
-            const { customerId, customerName, data, amount } = transaction;
+            const { customerId, customerName, date, amount } = transaction;
 
             const points = calculatePoints(amount); 
 
@@ -27,7 +27,7 @@ export const useCalculatePoints = ( transactions ) => {
             }
 
             customerMap[customerId].transactions.push({
-                data, 
+                date, 
                 amount,
                 points
             })
